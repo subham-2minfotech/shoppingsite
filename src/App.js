@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import Popup from "./Components/login&signup/Popup";
@@ -8,11 +8,13 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('login', true);
-    const login = localStorage.getItem('login')
+    const login = JSON.parse(localStorage.getItem('login'))
     setLogin(login)
   }, [])
 
-  const [popup, setPopup] = useState(false);
+  // const [popup, setPopup] = useState(false);
+  let popup;
+  popup = false;
 
   console.log('login---', login);
   console.log(popup && login);
@@ -20,14 +22,14 @@ function App() {
   let justPopup;
   (popup && login) ?
     justPopup = <Popup trigger={login} />
-  :
-    justPopup = <div/>
+    :
+    justPopup = <div />
 
 
   return (
     <div className='app'>
       <Header />
-      { justPopup }
+      {justPopup}
       <Footer />
     </div>
   );

@@ -1,38 +1,72 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Header.css'
 
 function Header() {
-  
-  const elements = [
-    { 
-      "name": 'Top Offer',
-      "link": 'https://rukminim1.flixcart.com/flap/128/128/image/f15c02bfeb02d15d.png?q=100' 
-    },
-    { 
-      "name": 'Grocery',
-      "link": '	https://rukminim1.flixcart.com/flap/128/128/image/29327f40e9c4d26b.png?q=100' 
-    },
-    { 
-      "name": 'Mobiles',
-      "link": 'https://rukminim1.flixcart.com/flap/128/128/image/22fddf3c7da4c4f4.png?q=100' 
-    },
-    { 
-      "name": 'Fashion',
-      "link": 'https://rukminim1.flixcart.com/flap/128/128/image/82b3ca5fb2301045.png?q=100' 
-    },
-    { 
-      "name": 'Electronics',
-      "link": 'https://rukminim1.flixcart.com/flap/128/128/image/69c6589653afdb9a.png?q=100' 
-    },
-    { 
-      "name": 'Home',
-      "link": 'https://rukminim1.flixcart.com/flap/128/128/image/ab7e2b022a4587dd.jpg?q=100' 
-    },
-    { 
-      "name": 'Appliances',
-      "link": '	https://rukminim1.flixcart.com/flap/128/128/image/0ff199d1bd27eb98.png?q=100' 
+
+  // const elements = [
+  //   {
+  //     "name": 'Top Offer',
+  //     "link": 'https://rukminim1.flixcart.com/flap/128/128/image/f15c02bfeb02d15d.png?q=100'
+  //   },
+  //   {
+  //     "name": 'Grocery',
+  //     "link": '	https://rukminim1.flixcart.com/flap/128/128/image/29327f40e9c4d26b.png?q=100'
+  //   },
+  //   {
+  //     "name": 'Mobiles',
+  //     "link": 'https://rukminim1.flixcart.com/flap/128/128/image/22fddf3c7da4c4f4.png?q=100'
+  //   },
+  //   {
+  //     "name": 'Fashion',
+  //     "link": 'https://rukminim1.flixcart.com/flap/128/128/image/82b3ca5fb2301045.png?q=100'
+  //   },
+  //   {
+  //     "name": 'Electronics',
+  //     "link": 'https://rukminim1.flixcart.com/flap/128/128/image/69c6589653afdb9a.png?q=100'
+  //   },
+  //   {
+  //     "name": 'Home',
+  //     "link": 'https://rukminim1.flixcart.com/flap/128/128/image/ab7e2b022a4587dd.jpg?q=100'
+  //   },
+  //   {
+  //     "name": 'Appliances',
+  //     "link": '	https://rukminim1.flixcart.com/flap/128/128/image/0ff199d1bd27eb98.png?q=100'
+  //   }
+  // ];
+
+  const [elements, setElements] = useState([])
+  useEffect(() => {
+    const recipeUrl = 'http://[::1]:3000/categories'
+    const requestMetadata = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: (JSON.stringify())
+    };
+    fetch(recipeUrl, requestMetadata)
+      .then(response => response.json())
+      .then(data => {
+        let dataToStore = JSON.stringify(data);
+        console.log(dataToStore);
+        localStorage.setItem('Data', dataToStore);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    const data = JSON.parse(localStorage.getItem('Data')) 
+    console.log('data==', data)
+    if (data) {
+      setElements(data)
     }
-  ];
+    else {
+      setElements(JSON.parse('null'))
+    }
+  }, [])
+
+
+  console.log('elements == ', elements);
 
   return (
     <div className='header'>
@@ -43,14 +77,14 @@ function Header() {
             <a href="/">
               <img width="75" src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/flipkart-plus_8d85f4.png" alt="Flipkart" title="Flipkart" class="_2xm1JU" />
             </a>
-            <a class="_21ljIi" href="/plus">
+            <a className="_21ljIi" href="/plus">
               Explore
-              <span class="_2FVHGh">Plus</span><img width="10" src="	https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/plus_aef861.png" alt="logo" />
+              <span className="_2FVHGh">Plus</span><img width="10" src="	https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/plus_aef861.png" alt="logo" />
             </a>
           </div>
           <div className='search'>
             <form
-              class="searchBox"
+              className="searchBox"
               action="/search" method="GET"
             >
               <div className="searchInner">
@@ -79,10 +113,10 @@ function Header() {
       <div className='headerlower'>
         <div className='headerlowerMain'>
           {
-            elements.map((value, index) => {
+            elements.map((value) => {
               return (
-                <div key={index} className='headerlowerComponents'>
-                  <img width="65" height="65" src={ value.link } alt={value.name} />
+                <div key={value.id} className='headerlowerComponents'>
+                  <img width="65" height="65" src={value.image} alt={value.name} />
                   <div>{value.name}</div>
                 </div>
               )

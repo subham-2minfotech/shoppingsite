@@ -77,9 +77,8 @@ function Loginform() {
         fontSize: '14px',
       }}
       >
-        <a>New to Flipkart? Create an account</a>
+        <a href="https://www.w3schools.com">New to Flipkart? Create an account</a>
       </div>
-
     </React.Fragment >
   )
 }
