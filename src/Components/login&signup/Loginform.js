@@ -1,43 +1,99 @@
 import React from 'react'
 import { TextField, Button } from '@material-ui/core';
+import { useFormik } from 'formik'
+import * as yup from 'yup'
+
+const validationSchema = yup.object({
+  email: yup
+    .string('Enter your email')
+    .email('Enter a valid email')
+    .required('Email is required'),
+  password: yup
+    .string('Enter your password')
+    .min(8, 'Password should be of minimum 8 characters length')
+    .required('Password is required'),
+});
 
 function Loginform() {
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      const recipeUrl = 'http://127.0.0.1:3000/users/login'
+      // alert(JSON.stringify(values, null, 2));
+      const requestMetadata = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: (JSON.stringify(values))
+      };
+      fetch(recipeUrl, requestMetadata)
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success : data = ',);
+          localStorage.setItem('login info', JSON.stringify(data, null, 2));
+          const asd = localStorage.getItem('login info')
+          alert(asd)
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+  })
   return (
     <React.Fragment>
-      <TextField
-        id="standard-basic"
-        label="Enter Mobile number"
-        fullWidth
-      />
-      <br /><br />
-      <TextField
-        id="standard-basic"
-        label="Enter Password"
-        fullWidth
-        type='password'
-      />
+      <form onSubmit={formik.handleSubmit} noValidate>
+        <TextField
+          id="email"
+          name="email"
+          type="email"
+          label="Email Address"
+          fullWidth
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+        />
+        <br /><br />
+        <TextField
+          fullWidth
+          name="password"
+          label="Password"
+          type="password"
+          id="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
+        />
 
-      <p style={{ color: '#878787', fontSize: '12px', padding: '20px 0 0 0' }}>
-        By continuing, you agree to Flipkart's Terms of Use and Privacy Policy.
-      </p>
+        <p style={{ color: '#878787', fontSize: '12px', padding: '20px 0 0 0' }}>
+          By continuing, you agree to Flipkart's Terms of Use and Privacy Policy.
+        </p>
 
-      <Button
-        variant="contained"
-        style={{
-          maxWidth: '100%',
-          maxHeight: '47px',
-          minWidth: '100%',
-          minHeight: '47px',
-          fontWeight: '550',
-          marginTop: '15px',
-          textTransform: 'none',
-          backgroundColor: '#fb641b',
-          color: '#FFFFFF',
-          fontFamily: '15px Roboto, Arial, sans-serif'
-        }}
-      >
-        Login
-      </Button>
+        <Button
+          variant="contained"
+          type="submit"
+          style={{
+            maxWidth: '100%',
+            maxHeight: '47px',
+            minWidth: '100%',
+            minHeight: '47px',
+            fontWeight: '550',
+            marginTop: '15px',
+            textTransform: 'none',
+            backgroundColor: '#fb641b',
+            color: '#FFFFFF',
+            fontFamily: '15px Roboto, Arial, sans-serif'
+          }}
+        >
+          Login
+        </Button>
+      </form>
 
       <br /><br />
       <div style={{
@@ -71,8 +127,8 @@ function Loginform() {
 
       <div style={{
         textAlign: 'center',
-        color: 'rgb(40, 116, 240)',
-        marginTop: '83px',
+        color: '#2874F0',
+        marginTop: '40px',
         fontWeight: '600',
         fontSize: '14px',
       }}

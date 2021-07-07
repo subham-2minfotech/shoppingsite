@@ -6,6 +6,7 @@ import Loginform from './Loginform'
 function Signup() {
   return (
     <div className='signup'>
+      {console.log('signup.js')}
       <div className='signup-left'>
         <span>Looks like you're new here!</span>
         <p className='paragraph'>
