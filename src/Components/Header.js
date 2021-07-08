@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Header.css'
 
-function Header() {
+function Header({ productId }) {
   const [elements, setElements] = useState([])
   useEffect(() => {
     const recipeUrl = 'http://127.0.0.1:3000/categories'
@@ -16,6 +16,7 @@ function Header() {
       .then(response => response.json())
       .then(data => {
         let dataToStore = JSON.stringify(data);
+        console.log('dataToStore =====', dataToStore);
         // console.log(dataToStore);
         localStorage.setItem('Data', dataToStore);
         const data1 = JSON.parse(localStorage.getItem('Data'))
@@ -33,7 +34,9 @@ function Header() {
 
   }, [])
 
-  // console.log('elements == ', elements);
+  const products = (props) => {
+    productId(props)
+  }
 
   return (
     <div className='header'>
@@ -83,7 +86,9 @@ function Header() {
             elements.map((value) => {
               return (
                 <div key={value.id} className='headerlowerComponents'>
-                  <img width="65" height="65" src={value.image} alt={value.name} />
+                  <button className='productbuton'>
+                    <img onClick={ () => products(value.id)} width="65" height="65" src={value.image} alt={value.name} />
+                  </button> 
                   <div>{value.name}</div>
                 </div>
               )

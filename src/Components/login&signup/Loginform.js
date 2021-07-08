@@ -36,6 +36,7 @@ function Loginform() {
         .then(data => {
           console.log('Success : data = ',);
           localStorage.setItem('login info', JSON.stringify(data, null, 2));
+          localStorage.setItem('login', true);
           const asd = localStorage.getItem('login info')
           alert(asd)
         })

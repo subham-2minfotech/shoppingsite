@@ -37,5 +37,37 @@
 .details {
   width: calc(100% - 200px);
   padding-left: 25px;
+  display: flex;
 }
 
+.detailsinner {
+  height: 100%;
+  width: 75%;
+}
+
+.buttondiv {
+  height: 100%;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+}
+
+.addbutton {
+  background-color: #ff9f00;
+  color: #fff;
+  height: 23%;
+  margin: auto;
+  width: 80%;
+  padding: 0;
+  border: none;
+}
+
+.buybutton {
+  color: #fff;
+  background-color: #fb641b;
+  height: 23%;
+  margin: auto;
+  width: 80%;
+  padding: 0;
+  border: none;
+}

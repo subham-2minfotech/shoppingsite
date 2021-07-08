@@ -89,7 +89,7 @@
 .button {
   border: none;
   background-color: #fff;
-  margin: 8px 2px 8px 0;
+  margin: 8px 2px 8px 94%;
 }
 
 .restheader {
@@ -161,9 +161,7 @@
 }
 
 .headerlowerMain {
-  /* background-color: seagreen; */
   width: 70%;
-  display: inline-block;
   margin: 0 auto;
   justify-content: space-evenly;
   display: flex;
@@ -175,4 +173,10 @@
   margin-top: 16px;
   text-align: center;
   font-size: 15px;
+}
+
+.productbuton {
+  padding: 0;
+  border: none;
+  background-color: #fff;
 }
