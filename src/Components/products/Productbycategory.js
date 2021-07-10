@@ -25,7 +25,7 @@ function Productbycategory({ productid }) {
       });
     const login = JSON.parse(localStorage.getItem('login info'))
     setUser(login)
-  }, [])
+  }, [productid])
 
   const addCart = () => {
     console.log('ADD TO CART LOG');

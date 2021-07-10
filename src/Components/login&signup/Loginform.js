@@ -2,6 +2,8 @@ import React from 'react'
 import { TextField, Button } from '@material-ui/core';
 import { useFormik } from 'formik'
 import * as yup from 'yup'
+import { useDispatch } from 'react-redux';
+import { loginAction } from '../../store/loginReducer/loginAction'
 
 const validationSchema = yup.object({
   email: yup
@@ -15,6 +17,8 @@ const validationSchema = yup.object({
 });
 
 function Loginform() {
+  const dispatch = useDispatch()
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -36,7 +40,12 @@ function Loginform() {
         .then(data => {
           console.log('Success : data = ',);
           localStorage.setItem('login info', JSON.stringify(data, null, 2));
-          localStorage.setItem('login', true);
+          console.log('data.id', data.id);
+
+          if (typeof data.id == 'number') {
+            dispatch(loginAction())
+          }
+
           const asd = localStorage.getItem('login info')
           alert(asd)
         })
