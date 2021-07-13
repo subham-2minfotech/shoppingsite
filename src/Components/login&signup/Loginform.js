@@ -3,7 +3,7 @@ import { TextField, Button } from '@material-ui/core';
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import { useDispatch } from 'react-redux';
-import { loginAction } from '../../store/loginReducer/loginAction'
+import { loginAction } from '../../store/login/loginAction';
 
 const validationSchema = yup.object({
   email: yup

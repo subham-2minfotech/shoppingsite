@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import './Productbycategory.css'
+import { useSelector, useDispatch } from 'react-redux'
+import { cartAction } from '../../store/cart/action'
 
 function Productbycategory({ productid }) {
   const [products, setProducts] = useState([])
   const [user, setUser] = useState('')
-
+  const dispatch = useDispatch();
   // (productid) ? 
+  const cart = useSelector(state => state.cart)
+  console.log('cart details ----- ', cart);
 
   useEffect(() => {
     console.log('productid----', productid);
@@ -27,8 +31,10 @@ function Productbycategory({ productid }) {
     setUser(login)
   }, [productid])
 
-  const addCart = () => {
-    console.log('ADD TO CART LOG');
+  const addCart = (e) => {
+    let data = {categoryDetais: productid, productDetails: e}
+    console.log('ADD TO CART LOG', data);
+    dispatch(cartAction(data))
   }
 
   const buyNow = () => {
@@ -56,7 +62,7 @@ function Productbycategory({ productid }) {
                     {value.name}
                   </div>
                   <div className='buttondiv'>
-                    <button onClick={addCart} className='addbutton'>ADD TO CART</button>
+                    <button onClick={() => addCart(value.id)} className='addbutton'>ADD TO CART</button>
                     <button onClick={buyNow} className='buybutton'>BUY NOW</button>
                   </div>
                 </div>
