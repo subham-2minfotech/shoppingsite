@@ -1,0 +1,31 @@
+.main {
+  /* background-color: #ffffff; */
+  margin: 1rem auto;
+  box-shadow: 1px 1px 7px 2px rgb(102 102 102 / 14%);
+  display: flex;
+  flex-direction: column;
+
+}
+
+.maindetails {
+  height: 3.6rem;
+  margin-top: -1rem;
+  border-bottom: 1px solid #f3eeea;
+}
+
+.mycart {
+  font-size: 18px;
+  line-height: 56px;
+  padding: 0 24px;
+  font-weight: 500;
+}
+
+.mainproducts {
+  height: 12rem;
+}
+
+.mainorder {
+  height: 5rem;
+  margin-bottom: -1rem;
+  box-shadow: 0px -2px 5px 0px rgb(102 102 102 / 20%);
+}

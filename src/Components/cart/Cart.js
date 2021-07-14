@@ -1,12 +1,29 @@
 import React from 'react'
-// import Header from '../Header'
+import Headerupper from '../Headerupper'
+import './Cart.css'
+// import { useSelector } from 'react-redux'
+import { useSelector} from 'react-redux'
 
-function cart() {
+function Cart() {
+  // const cart = useSelector(state => state.cart)
+  const cart = useSelector(state => state.cart)
+  console.log('cart==== ', cart);
   return (
     <React.Fragment>
-      cart component
+      <div className='headerupper'>
+        <Headerupper />
+      </div>
+      <div className='main'>
+        <div className='maindetails'>
+          <div className='mycart'>
+            My Cart
+          </div>
+        </div>
+        <div className='mainproducts'>mainproducts</div>
+        <div className='mainorder'>mainorder</div>
+      </div>
     </React.Fragment>
   )
 }
 
-export default cart
+export default Cart

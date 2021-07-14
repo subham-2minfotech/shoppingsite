@@ -32,9 +32,9 @@ function Productbycategory({ productid }) {
   }, [productid])
 
   const addCart = (e) => {
-    let data = {categoryDetais: productid, productDetails: e}
-    console.log('ADD TO CART LOG', data);
-    dispatch(cartAction(data))
+    // let data = {categoryDetais: productid, productDetails: e}
+    console.log('ADD TO CART LOG', e);
+    dispatch(cartAction(e))
   }
 
   const buyNow = () => {

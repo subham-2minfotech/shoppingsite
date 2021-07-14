@@ -2,16 +2,30 @@ import { combineReducers, createStore } from "redux";
 import LoggedReducer from "./login/reducer";
 import CategoryReducer from "./category/reducer";
 import CartReducer from "./cart/reducer";
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
-const allReducers = combineReducers({
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['isLogged']
+}
+
+const rootReducers = combineReducers({
   isLogged: LoggedReducer,
   category: CategoryReducer,
   cart: CartReducer,
 })
 
-const store = createStore(
-  allReducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
+const persistedReducer = persistReducer(persistConfig, rootReducers)
 
-export default store;
+const configureStore = () => {
+  const store = createStore(
+    persistedReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+  const persistor = persistStore(store);
+  return { persistor, store };
+}
+
+export default configureStore;
