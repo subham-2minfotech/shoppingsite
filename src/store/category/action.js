@@ -1,4 +1,4 @@
-export const categoryAction = (array) => {
+export const updateCategoryData = (array) => {
   return {
     type: 'UPDATE',
     payload: array,

@@ -1,5 +1,5 @@
 import React from 'react'
-import Headerupper from '../Headerupper'
+import Headerpper from '../Header/Headerupper'
 import './Cart.css'
 // import { useSelector } from 'react-redux'
 import { useSelector} from 'react-redux'
@@ -10,8 +10,8 @@ function Cart() {
   console.log('cart==== ', cart);
   return (
     <React.Fragment>
-      <div className='headerupper'>
-        <Headerupper />
+      <div className='headerpper'>
+        <Headerpper />
       </div>
       <div className='main'>
         <div className='maindetails'>

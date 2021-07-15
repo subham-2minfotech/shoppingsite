@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import './Productbycategory.css'
-import { useSelector, useDispatch } from 'react-redux'
-import { cartAction } from '../../store/cart/action'
+import { useDispatch } from 'react-redux'
+import { AddToCart } from '../../store/cart/action'
+import { useSelector } from 'react-redux'
 
-function Productbycategory({ productid }) {
+function Productbycategory() {
   const [products, setProducts] = useState([])
-  const [user, setUser] = useState('')
+  const productid = useSelector(state => state.productId)
+  // const [user, setUser] = useState('')
   const dispatch = useDispatch();
   // (productid) ? 
-  const cart = useSelector(state => state.cart)
-  console.log('cart details ----- ', cart);
+  // const cart = useSelector(state => state.cart)
+  // console.log('Cart Reducer details ----- ', cart);
 
   useEffect(() => {
-    console.log('productid----', productid);
+    // console.log('productid----', productid);
     const recipeUrl = `http://127.0.0.1:3000/products/number-of-products/${productid}`
     const requestMetadata = {
       method: 'GET',
@@ -24,24 +26,23 @@ function Productbycategory({ productid }) {
     fetch(recipeUrl, requestMetadata)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        // console.log(`productid's product =`,data);
         setProducts(data)
       });
-    const login = JSON.parse(localStorage.getItem('login info'))
-    setUser(login)
+    // const login = JSON.parse(localStorage.getItem('login info'))
+    // setUser(login)
   }, [productid])
 
   const addCart = (e) => {
-    // let data = {categoryDetais: productid, productDetails: e}
     console.log('ADD TO CART LOG', e);
-    dispatch(cartAction(e))
+    dispatch(AddToCart(e))
   }
 
   const buyNow = () => {
     console.log('BUY NOW LOG');
   }
 
-  console.log('user--------', user.id);
+  // console.log('user--------', user.id);
 
   return (
     <React.Fragment>

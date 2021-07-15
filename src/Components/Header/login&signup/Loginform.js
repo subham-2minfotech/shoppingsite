@@ -3,7 +3,7 @@ import { TextField, Button } from '@material-ui/core';
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import { useDispatch } from 'react-redux';
-import { loginAction } from '../../store/login/loginAction';
+import { login } from '../../../store/login&logout/action';
 
 const validationSchema = yup.object({
   email: yup
@@ -38,12 +38,10 @@ function Loginform() {
       fetch(recipeUrl, requestMetadata)
         .then(response => response.json())
         .then(data => {
-          console.log('Success : data = ',);
           localStorage.setItem('login info', JSON.stringify(data, null, 2));
-          console.log('data.id', data.id);
-
+          // console.log('data.id', data.id);
           if (typeof data.id == 'number') {
-            dispatch(loginAction())
+            dispatch(login())
           }
 
           const asd = localStorage.getItem('login info')
